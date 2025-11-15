@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     QWidget widget;
     widget.setMinimumSize(640, 480);
-    widget.setWindowTitle("METANIT.COM");
+    widget.setWindowTitle("MonkeyWriter");
     btn = new QPushButton("New File", &widget);
     btn1 = new QPushButton("Open File", &widget);
     btn2 = new QPushButton("Exit", &widget);
@@ -33,6 +33,9 @@ int main(int argc, char *argv[])
     btn2->setGeometry(100, 300, 100, 50);
     QObject::connect(btn, &QPushButton::clicked, newFile);
     QObject::connect(btn2, &QPushButton::clicked, exitBtn);
+    QLabel *label = new QLabel("Текст надписи", &widget);
+    label->setGeometry(300, 150, 200, 200);
+    label->setPixmap(QPixmap("/home/keksonadze/Pictures/AA1KaYJf.jpg").scaled(200, 200, Qt::KeepAspectRatio));
     widget.show();
     return app.exec();
 }
