@@ -1,4 +1,5 @@
 #include <menu.h>
+#include <workingArea.h>
 #include <QTreeView>
 
 MyWidget::MyWidget(QWidget *parent)
@@ -11,12 +12,13 @@ void MyWidget::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
     QPainter painter(this);
-    painter.drawPixmap(320, 150, 200, 200, QPixmap("/home/keksonadze/MonkeyWriter/images/AA1KaYJf.jpg"));
+    painter.drawPixmap(320, 150, 200, 200, QPixmap(":/assets/images/AA1KaYJf.jpg"));
 }
 
 menuWindow::menuWindow(QWidget *parent)
     : QWidget(parent)
 {
+    setFixedSize(this->width(), this->height());
     MyWidget* imageWidget= new MyWidget(this);
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(imageWidget);
@@ -38,12 +40,6 @@ menuWindow::menuWindow(QWidget *parent)
     this->show();
 }
 
-// slideShow::slideShow(){
-//     QLabel* label = new QLabel("Текст надписи", this);
-//     label->setGeometry(300, 150, 200, 200);
-//     label->setPixmap(QPixmap("/home/keksonadze/MonkeyWriter/Images/AA1KaYJf.jpg").scaled(200, 200, Qt::KeepAspectRatio));
-
-// }
 void menuWindow::openFile()
 {
     QWidget* widget = new QWidget;
@@ -59,20 +55,13 @@ void menuWindow::openFile()
     widget->show();
 }
 
-void menuWindow::newFile(){
-    QWidget* widget = new QWidget;
-    widget->setMinimumSize(640, 480);
-    widget->setWindowTitle("Open file");
-    QTreeView *treeView = new QTreeView();
-    QHBoxLayout *layout = new QHBoxLayout(widget);
-    layout->addWidget(treeView);
-    QFileSystemModel *model = new QFileSystemModel;
-    model->setRootPath(QDir::currentPath());
-    treeView->setModel(model);
-    treeView->setRootIndex(model->index(QDir::currentPath()));
-    widget->show();
+void menuWindow::newFile()
+{
+    wArea* area = new wArea;
+    area->show();
 }
 
-void menuWindow::exitBtn(){
+void menuWindow::exitBtn()
+{
     QCoreApplication::quit();
 }
