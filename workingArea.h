@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QToolBar>
+#include <QTextEdit>
 
 class wArea: public QWidget
 {
@@ -11,6 +12,8 @@ public:
     explicit wArea(QWidget *parent = nullptr);
 private:
     QToolBar *toolbar;
+    QTextEdit *textEdit;
+
 private slots:
     void test();
 };
