@@ -6,12 +6,9 @@
 #include <QPropertyAnimation>
 #include <QLabel>
 #include <QPainter>
-
-
-namespace Menu{
-    class menuWindow;
-    class MyWidget;
-}
+#include <QTreeView>
+#include <QFileSystemModel>
+#include <QString>
 
 class MyWidget : public QWidget
 {
@@ -33,6 +30,18 @@ private slots:
     void newFile();
     void openFile();
     void exitBtn();
+};
+
+class selectItem : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit selectItem(QWidget *parent = nullptr);
+private slots:
+    void selectFile();
+private:
+    QTreeView *treeView;
+    QFileSystemModel *model;
 };
 
 #endif // MENU_H

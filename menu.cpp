@@ -2,7 +2,10 @@
 #include <workingArea.h>
 #include <QTreeView>
 #include <QGridLayout>
-
+#include <QFileSystemModel>
+#include <QTreeView>
+#include <QItemSelectionModel>
+#include <QFile>
 
 MyWidget::MyWidget(QWidget *parent)
     : QWidget(parent)
@@ -42,26 +45,42 @@ menuWindow::menuWindow(QWidget *parent)
     this->show();
 }
 
-void menuWindow::openFile()
+selectItem::selectItem(QWidget *parent)
+    : QWidget(parent)
 {
-    QWidget* widget = new QWidget;
-    widget->setMinimumSize(640, 480);
-    widget->setFixedSize(width(), height());
-    widget->setWindowTitle("Open file");
-    QTreeView *treeView = new QTreeView();
-    QGridLayout *layout = new QGridLayout(widget);
+    this->setMinimumSize(640, 480);
+    this->setFixedSize(width(), height());
+    this->setWindowTitle("Open file");
+    treeView = new QTreeView();
+    QGridLayout *layout = new QGridLayout(this);
     layout->addWidget(treeView, 0, 0, 1, 2);
-    QFileSystemModel *model = new QFileSystemModel;
+    model = new QFileSystemModel;
     model->setRootPath(QDir::currentPath());
     treeView->setModel(model);
     treeView->setRootIndex(model->index(QDir::currentPath()));
-    QPushButton* btn = new QPushButton("Open File", widget);
-    QPushButton* btn1 = new QPushButton("Cancel", widget);
-    QObject::connect(btn1, &QPushButton::clicked, widget, &QWidget::close);
+    QPushButton* btn = new QPushButton("Open File", this);
+    QPushButton* btn1 = new QPushButton("Cancel", this);
+    QObject::connect(btn, &QPushButton::clicked, this, &selectItem::selectFile);
+    QObject::connect(btn1, &QPushButton::clicked, this, &QWidget::close);
     layout->addWidget(btn, 1, 1, Qt::AlignRight);
     layout->addWidget(btn1, 1, 1, Qt::AlignHCenter);
     layout->setHorizontalSpacing(120);
-    widget->show();
+    this->show();
+}
+
+void selectItem::selectFile()
+{
+    QModelIndexList selectedIndex = treeView->selectionModel()->selectedIndexes();
+    if(!selectedIndex.empty())
+        QMessageBox::information(this, "Warning", model->filePath(selectedIndex[0]));
+    QWidget::close();
+    wArea* area = new wArea(nullptr, 1, model->filePath(selectedIndex[0]));
+    area->show();
+}
+
+
+void menuWindow::openFile(){
+    selectItem* itemFile = new selectItem;
 }
 
 void menuWindow::newFile()
