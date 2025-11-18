@@ -3,7 +3,7 @@
 #include <QMessageBox>
 #include <workingArea.h>
 
-wArea::wArea(QWidget *parent)
+wArea::wArea(QWidget *parent, int status, QString string)
     : QWidget(parent)
 {
     this->setMinimumSize(640, 480);
@@ -17,9 +17,18 @@ wArea::wArea(QWidget *parent)
     toolbar->addSeparator();
     layout->addWidget(toolbar);
     layout->addWidget(textEdit);
+    if (status == 1){
+        QFile* file = new QFile(string);
+        file->open(QIODevice::ReadOnly);
+        QTextStream textStream(file);
+        QString line = textStream.readAll();
+        file->close();
+        textEdit->setPlainText(line);
+    }
     textEdit->show();
 }
 
 void wArea::test(){
     QMessageBox::information(this, "Warning", "ooga-booga!");
 }
+

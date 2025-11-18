@@ -4,12 +4,13 @@
 #include <QWidget>
 #include <QToolBar>
 #include <QTextEdit>
+#include <QFile>
 
 class wArea: public QWidget
 {
     Q_OBJECT
 public:
-    explicit wArea(QWidget *parent = nullptr);
+    explicit wArea(QWidget *parent = nullptr, int status = 0, QString string = "");
 private:
     QToolBar *toolbar;
     QTextEdit *textEdit;
