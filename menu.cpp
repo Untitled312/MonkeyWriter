@@ -1,6 +1,8 @@
 #include <menu.h>
 #include <workingArea.h>
 #include <QTreeView>
+#include <QGridLayout>
+
 
 MyWidget::MyWidget(QWidget *parent)
     : QWidget(parent)
@@ -44,14 +46,21 @@ void menuWindow::openFile()
 {
     QWidget* widget = new QWidget;
     widget->setMinimumSize(640, 480);
+    widget->setFixedSize(width(), height());
     widget->setWindowTitle("Open file");
     QTreeView *treeView = new QTreeView();
-    QHBoxLayout *layout = new QHBoxLayout(widget);
-    layout->addWidget(treeView);
+    QGridLayout *layout = new QGridLayout(widget);
+    layout->addWidget(treeView, 0, 0, 1, 2);
     QFileSystemModel *model = new QFileSystemModel;
     model->setRootPath(QDir::currentPath());
     treeView->setModel(model);
     treeView->setRootIndex(model->index(QDir::currentPath()));
+    QPushButton* btn = new QPushButton("Open File", widget);
+    QPushButton* btn1 = new QPushButton("Cancel", widget);
+    QObject::connect(btn1, &QPushButton::clicked, widget, &QWidget::close);
+    layout->addWidget(btn, 1, 1, Qt::AlignRight);
+    layout->addWidget(btn1, 1, 1, Qt::AlignHCenter);
+    layout->setHorizontalSpacing(120);
     widget->show();
 }
 
