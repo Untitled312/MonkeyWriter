@@ -14,15 +14,8 @@ MyWidget::MyWidget(QWidget *parent)
     MyWidget::monkeySpinning();
 }
 
-// void MyWidget::paintEvent(QPaintEvent *event)
-// {
-//     Q_UNUSED(event);
-//     QPainter painter(this);
-//     painter.draw(320, 150, 200, 200, QPixmap(":/assets/images/AA1KaYJf.jpg"));
-// }
-
 void MyWidget::monkeySpinning(){
-    QMovie *movie = new QMovie("/home/keksonadze/Downloads/monkey.gif");
+    QMovie *movie = new QMovie(":/assets/images/monkey.gif");
     movie->setScaledSize(QSize(400, 400));
     QLabel *processLabel = new QLabel(this);
     processLabel->setMovie(movie);
