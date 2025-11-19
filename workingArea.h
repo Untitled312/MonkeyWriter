@@ -19,6 +19,9 @@ private slots:
     void test();
     void bold();
     void italic();
+    void underline();
+    void chooseFont();
+    void savingFile();
 };
 
 #endif // WORKINGAREA_H
