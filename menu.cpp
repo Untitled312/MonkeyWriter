@@ -62,9 +62,9 @@ selectItem::selectItem(QWidget *parent)
     this->setFixedSize(width(), height());
     this->setWindowTitle("Open file");
     layout->addWidget(treeView, 0, 0, 1, 2);
-    model->setRootPath(QDir::currentPath());
+    model->setRootPath(QDir::homePath());
     treeView->setModel(model);
-    treeView->setRootIndex(model->index(QDir::currentPath()));
+    treeView->setRootIndex(model->index(QDir::homePath()));
     layout->addWidget(btn, 1, 1, Qt::AlignRight);
     layout->addWidget(btn1, 1, 1, Qt::AlignHCenter);
     layout->setHorizontalSpacing(120);
