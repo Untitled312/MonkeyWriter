@@ -18,7 +18,8 @@ public:
     explicit MyWidget(QWidget *parent = nullptr);
 
 protected:
-    void paintEvent(QPaintEvent *event);
+    // void paintEvent(QPaintEvent *event);
+    void monkeySpinning();
 };
 
 class menuWindow: public QWidget
