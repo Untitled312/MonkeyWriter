@@ -16,11 +16,11 @@ wArea::wArea(QWidget *parent, int status, QString string)
     toolbar = new QToolBar(this);
     textEdit = new QTextEdit(this);
     QVBoxLayout* layout = new QVBoxLayout(this);
-    QAction *newAction = new QAction(QIcon(":/assets/icons/banana.ico"), "New", this);
-    QAction *newActionBold = new QAction(QIcon(":/assets/icons/bold.png"), "New", this);
-    QAction *newActionItalic = new QAction(QIcon(":/assets/icons/italic.ico"), "New", this);
-    QAction *newActionUnderline = new QAction(QIcon(":/assets/icons/underline.ico"), "New", this);
-    QAction *newActionFont = new QAction(QIcon(":/assets/icons/font.ico"), "New", this);
+    QAction *newAction = new QAction(QIcon(":/assets/icons/banana.ico"), "Save As", this);
+    QAction *newActionBold = new QAction(QIcon(":/assets/icons/bold.png"), "Bold", this);
+    QAction *newActionItalic = new QAction(QIcon(":/assets/icons/italic.ico"), "Italic", this);
+    QAction *newActionUnderline = new QAction(QIcon(":/assets/icons/underline.ico"), "Underline", this);
+    QAction *newActionFont = new QAction(QIcon(":/assets/icons/font.ico"), "Choose a font", this);
     newAction->setStatusTip("Create a new file");
     connect(newAction, &QAction::triggered, this, &wArea::savingFile);
     connect(newActionBold, &QAction::triggered, this, &wArea::bold);
@@ -97,10 +97,16 @@ void wArea::underline(){
 
 void wArea::chooseFont(){
     bool flag;
+    QTextCharFormat fmt;
+    QTextCursor cursor = textEdit->textCursor();
     QFont font = QFontDialog::getFont(&flag, QFont("Helvetica", 10), this);
+    if (!cursor.hasSelection()){
+        textEdit->setCurrentFont(font);
+    }
     if (flag)
     {
-        textEdit->setFont(font);
+        fmt.setFont(font);
+        cursor.mergeCharFormat(fmt);
     }
 }
 
