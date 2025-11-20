@@ -20,6 +20,7 @@ private slots:
     void bold();
     void italic();
     void underline();
+    void strikethrough();
     void chooseFont();
     void savingFile();
 };

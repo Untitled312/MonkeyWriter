@@ -6,5 +6,6 @@
         <file>images/monkey.gif</file>
         <file>icons/underline.ico</file>
         <file>icons/font.ico</file>
+        <file>icons/strikethrough.ico</file>
     </qresource>
 </RCC>
