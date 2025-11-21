@@ -7,5 +7,7 @@
         <file>icons/underline.ico</file>
         <file>icons/font.ico</file>
         <file>icons/strikethrough.ico</file>
+        <file>icons/down.ico</file>
+        <file>icons/up.ico</file>
     </qresource>
 </RCC>

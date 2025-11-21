@@ -16,11 +16,13 @@ wArea::wArea(QWidget *parent, int status, QString string)
     toolbar = new QToolBar(this);
     textEdit = new QTextEdit(this);
     QVBoxLayout* layout = new QVBoxLayout(this);
-    QAction *newAction = new QAction(QIcon(":/assets/icons/banana.ico"), "Save As", this);
+    QAction *newAction = new QAction(QIcon(":/assets/icons/banana.ico"), "Save as", this);
     QAction *newActionBold = new QAction(QIcon(":/assets/icons/bold.png"), "Bold", this);
     QAction *newActionItalic = new QAction(QIcon(":/assets/icons/italic.ico"), "Italic", this);
     QAction *newActionUnderline = new QAction(QIcon(":/assets/icons/underline.ico"), "Underline", this);
     QAction *newActionStrike = new QAction(QIcon(":/assets/icons/strikethrough.ico"), "Strikethrough", this);
+    QAction *newActionBig = new QAction(QIcon(":/assets/icons/up.ico"), "Increase font size", this);
+    QAction *newActionSmall = new QAction(QIcon(":/assets/icons/down.ico"), "Decrease font size", this);
     QAction *newActionFont = new QAction(QIcon(":/assets/icons/font.ico"), "Choose a font", this);
     newAction->setStatusTip("Create a new file");
     connect(newAction, &QAction::triggered, this, &wArea::savingFile);
@@ -28,6 +30,8 @@ wArea::wArea(QWidget *parent, int status, QString string)
     connect(newActionItalic, &QAction::triggered, this, &wArea::italic);
     connect(newActionUnderline, &QAction::triggered, this, &wArea::underline);
     connect(newActionStrike, &QAction::triggered, this, &wArea::strikethrough);
+    connect(newActionBig, &QAction::triggered, this, &wArea::bigFont);
+    connect(newActionSmall, &QAction::triggered, this, &wArea::smallFont);
     connect(newActionFont, &QAction::triggered, this, &wArea::chooseFont);
     toolbar->addAction(newAction);
     toolbar->addSeparator();
@@ -38,6 +42,10 @@ wArea::wArea(QWidget *parent, int status, QString string)
     toolbar->addAction(newActionUnderline);
     toolbar->addSeparator();
     toolbar->addAction(newActionStrike);
+    toolbar->addSeparator();
+    toolbar->addAction(newActionBig);
+    toolbar->addSeparator();
+    toolbar->addAction(newActionSmall);
     toolbar->addSeparator();
     toolbar->addAction(newActionFont);
     layout->addWidget(toolbar);
@@ -59,13 +67,14 @@ void wArea::test(){
 
 void wArea::bold(){
     QTextCharFormat fmt;
+    QTextCursor cursor = textEdit->textCursor();
+    fmt = cursor.charFormat();
     if (textEdit->fontWeight() == QFont::Normal){
         fmt.setFontWeight(QFont::Bold);
     }
     else{
         fmt.setFontWeight(QFont::Normal);
     }
-    QTextCursor cursor = textEdit->textCursor();
     if (!cursor.hasSelection())
         textEdit->setCurrentCharFormat(fmt);
     cursor.mergeCharFormat(fmt);
@@ -73,13 +82,14 @@ void wArea::bold(){
 
 void wArea::italic(){
     QTextCharFormat fmt;
+    QTextCursor cursor = textEdit->textCursor();
+    fmt = cursor.charFormat();
     if (textEdit->fontItalic() == 0){
         fmt.setFontItalic(1);
     }
     else{
         fmt.setFontItalic(0);
     }
-    QTextCursor cursor = textEdit->textCursor();
     if (!cursor.hasSelection())
         textEdit->setCurrentCharFormat(fmt);
     cursor.mergeCharFormat(fmt);
@@ -87,13 +97,14 @@ void wArea::italic(){
 
 void wArea::underline(){
     QTextCharFormat fmt;
+    QTextCursor cursor = textEdit->textCursor();
+    fmt = cursor.charFormat();
     if (textEdit->fontUnderline() == 0){
         fmt.setFontUnderline(1);
     }
     else{
         fmt.setFontUnderline(0);
     }
-    QTextCursor cursor = textEdit->textCursor();
     if (!cursor.hasSelection())
         textEdit->setCurrentCharFormat(fmt);
     cursor.mergeCharFormat(fmt);
@@ -101,13 +112,35 @@ void wArea::underline(){
 
 void wArea::strikethrough(){
     QTextCharFormat fmt;
+    QTextCursor cursor = textEdit->textCursor();
+    fmt = cursor.charFormat();
     if (textEdit->currentFont().strikeOut() == 0){
         fmt.setFontStrikeOut(1);
     }
     else{
         fmt.setFontStrikeOut(0);
     }
+    if (!cursor.hasSelection())
+        textEdit->setCurrentCharFormat(fmt);
+    cursor.mergeCharFormat(fmt);
+}
+
+void wArea::bigFont(){
+    QTextCharFormat fmt;
     QTextCursor cursor = textEdit->textCursor();
+    fmt = cursor.charFormat();
+    fmt.setFontPointSize(fmt.font().pointSize() + 1);
+    if (!cursor.hasSelection())
+        textEdit->setCurrentCharFormat(fmt);
+    cursor.mergeCharFormat(fmt);
+}
+
+void wArea::smallFont(){
+    QTextCharFormat fmt;
+    QTextCursor cursor = textEdit->textCursor();
+    fmt = cursor.charFormat();
+    if (fmt.font().pointSize() > 1)
+        fmt.setFontPointSize(fmt.font().pointSize() - 1);
     if (!cursor.hasSelection())
         textEdit->setCurrentCharFormat(fmt);
     cursor.mergeCharFormat(fmt);

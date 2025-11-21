@@ -21,6 +21,8 @@ private slots:
     void italic();
     void underline();
     void strikethrough();
+    void bigFont();
+    void smallFont();
     void chooseFont();
     void savingFile();
 };
