@@ -23,6 +23,7 @@ private slots:
     void strikethrough();
     void bigFont();
     void smallFont();
+    void colorFont();
     void chooseFont();
     void savingFile();
 };

@@ -8,13 +8,9 @@
 #include <QFile>
 #include <QMovie>
 
-MyWidget::MyWidget(QWidget *parent)
+funnyMonkey::funnyMonkey(QWidget *parent)
     : QWidget(parent)
 {
-    MyWidget::monkeySpinning();
-}
-
-void MyWidget::monkeySpinning(){
     QMovie *movie = new QMovie(":/assets/images/monkey.gif");
     movie->setScaledSize(QSize(400, 400));
     QLabel *processLabel = new QLabel(this);
@@ -26,25 +22,26 @@ void MyWidget::monkeySpinning(){
 menuWindow::menuWindow(QWidget *parent)
     : QWidget(parent)
 {
+    this->setMinimumSize(640, 480);
+    this->setWindowTitle("MonkeyWriter");
     setFixedSize(this->width(), this->height());
-    MyWidget* imageWidget= new MyWidget(this);
+    setStyleSheet("background-color: #FFF8DC");
+    funnyMonkey* imageWidget = new funnyMonkey(this);
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(imageWidget);
     setLayout(mainLayout);
     QPushButton* btn = new QPushButton("New File", this);
     QPushButton* btn1 = new QPushButton("Open File", this);
     QPushButton* btn2 = new QPushButton("Exit", this);
-    this->setMinimumSize(640, 480);
-    this->setWindowTitle("MonkeyWriter");
-    QLabel *label = new QLabel(this);
-    label->setText("<p style='font-size: 40px;'><b>MonkeyWriter</b></p>");
-    label->setGeometry(280, 0, 400, 200);
-    QObject::connect(btn, &QPushButton::clicked, this, &menuWindow::newFile);
-    QObject::connect(btn1, &QPushButton::clicked, this, &menuWindow::openFile);
-    QObject::connect(btn2, &QPushButton::clicked, this, &menuWindow::exitBtn);
     btn->setGeometry(100, 100, 100, 50);
     btn1->setGeometry(100, 200, 100, 50);
     btn2->setGeometry(100, 300, 100, 50);
+    QObject::connect(btn, &QPushButton::clicked, this, &menuWindow::newFile);
+    QObject::connect(btn1, &QPushButton::clicked, this, &menuWindow::openFile);
+    QObject::connect(btn2, &QPushButton::clicked, this, &menuWindow::exitBtn);
+    QLabel *label = new QLabel(this);
+    label->setText("<p style='font-size: 40px;'><b>MonkeyWriter</b></p>");
+    label->setGeometry(280, 70, 400, 50);
     this->show();
 }
 

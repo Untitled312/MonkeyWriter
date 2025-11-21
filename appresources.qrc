@@ -9,5 +9,6 @@
         <file>icons/strikethrough.ico</file>
         <file>icons/down.ico</file>
         <file>icons/up.ico</file>
+        <file>icons/palette.ico</file>
     </qresource>
 </RCC>

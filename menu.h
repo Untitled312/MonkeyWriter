@@ -10,16 +10,12 @@
 #include <QFileSystemModel>
 #include <QString>
 
-class MyWidget : public QWidget
+class funnyMonkey : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit MyWidget(QWidget *parent = nullptr);
-
-protected:
-    // void paintEvent(QPaintEvent *event);
-    void monkeySpinning();
+    explicit funnyMonkey(QWidget *parent = nullptr);
 };
 
 class menuWindow: public QWidget

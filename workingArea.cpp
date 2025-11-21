@@ -6,12 +6,14 @@
 #include <QTextCharFormat>
 #include <QFileDialog>
 #include <QFontDialog>
+#include <QColorDialog>
 #include <workingArea.h>
 
 
 wArea::wArea(QWidget *parent, int status, QString string)
     : QWidget(parent)
 {
+    setStyleSheet("background-color: #FFF8DC");
     this->setMinimumSize(640, 480);
     toolbar = new QToolBar(this);
     textEdit = new QTextEdit(this);
@@ -23,6 +25,7 @@ wArea::wArea(QWidget *parent, int status, QString string)
     QAction *newActionStrike = new QAction(QIcon(":/assets/icons/strikethrough.ico"), "Strikethrough", this);
     QAction *newActionBig = new QAction(QIcon(":/assets/icons/up.ico"), "Increase font size", this);
     QAction *newActionSmall = new QAction(QIcon(":/assets/icons/down.ico"), "Decrease font size", this);
+    QAction *newActionColor = new QAction(QIcon(":/assets/icons/palette.ico"), "Decrease font size", this);
     QAction *newActionFont = new QAction(QIcon(":/assets/icons/font.ico"), "Choose a font", this);
     newAction->setStatusTip("Create a new file");
     connect(newAction, &QAction::triggered, this, &wArea::savingFile);
@@ -32,6 +35,7 @@ wArea::wArea(QWidget *parent, int status, QString string)
     connect(newActionStrike, &QAction::triggered, this, &wArea::strikethrough);
     connect(newActionBig, &QAction::triggered, this, &wArea::bigFont);
     connect(newActionSmall, &QAction::triggered, this, &wArea::smallFont);
+    connect(newActionColor, &QAction::triggered, this, &wArea::colorFont);
     connect(newActionFont, &QAction::triggered, this, &wArea::chooseFont);
     toolbar->addAction(newAction);
     toolbar->addSeparator();
@@ -46,6 +50,8 @@ wArea::wArea(QWidget *parent, int status, QString string)
     toolbar->addAction(newActionBig);
     toolbar->addSeparator();
     toolbar->addAction(newActionSmall);
+    toolbar->addSeparator();
+    toolbar->addAction(newActionColor);
     toolbar->addSeparator();
     toolbar->addAction(newActionFont);
     layout->addWidget(toolbar);
@@ -143,6 +149,17 @@ void wArea::smallFont(){
         fmt.setFontPointSize(fmt.font().pointSize() - 1);
     if (!cursor.hasSelection())
         textEdit->setCurrentCharFormat(fmt);
+    cursor.mergeCharFormat(fmt);
+}
+
+void wArea::colorFont(){
+    QTextCharFormat fmt;
+    QTextCursor cursor = textEdit->textCursor();
+    QColor color = QColorDialog::getColor(Qt::black, this);
+    if (!cursor.hasSelection()){
+        textEdit->setTextColor(color);
+    }
+    fmt.setForeground(color);
     cursor.mergeCharFormat(fmt);
 }
 
