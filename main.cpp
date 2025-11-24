@@ -5,8 +5,8 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPropertyAnimation>
-#include <menu.cpp>
-#include <workingArea.cpp>
+#include "menu.cpp"
+#include "workingArea.cpp"
 
 int main(int argc, char *argv[])
 {

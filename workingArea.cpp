@@ -7,10 +7,10 @@
 #include <QFileDialog>
 #include <QFontDialog>
 #include <QColorDialog>
-#include <workingArea.h>
+#include "workingArea.h"
 
 
-wArea::wArea(QWidget *parent, int status, QString string)
+inline wArea::wArea(QWidget *parent, int status, QString string)
     : QWidget(parent)
 {
     setStyleSheet("background-color: #FFF8DC");
@@ -67,11 +67,11 @@ wArea::wArea(QWidget *parent, int status, QString string)
     textEdit->show();
 }
 
-void wArea::test(){
-    QMessageBox::information(this, "Warning", "ooga-booga!");
-}
+// inline void wArea::test(){
+//     QMessageBox::information(this, "Warning", "ooga-booga!");
+// }
 
-void wArea::bold(){
+inline void wArea::bold(){
     QTextCharFormat fmt;
     QTextCursor cursor = textEdit->textCursor();
     fmt = cursor.charFormat();
@@ -86,7 +86,7 @@ void wArea::bold(){
     cursor.mergeCharFormat(fmt);
 }
 
-void wArea::italic(){
+inline void wArea::italic(){
     QTextCharFormat fmt;
     QTextCursor cursor = textEdit->textCursor();
     fmt = cursor.charFormat();
@@ -101,7 +101,7 @@ void wArea::italic(){
     cursor.mergeCharFormat(fmt);
 }
 
-void wArea::underline(){
+inline void wArea::underline(){
     QTextCharFormat fmt;
     QTextCursor cursor = textEdit->textCursor();
     fmt = cursor.charFormat();
@@ -116,7 +116,7 @@ void wArea::underline(){
     cursor.mergeCharFormat(fmt);
 }
 
-void wArea::strikethrough(){
+inline void wArea::strikethrough(){
     QTextCharFormat fmt;
     QTextCursor cursor = textEdit->textCursor();
     fmt = cursor.charFormat();
@@ -131,7 +131,7 @@ void wArea::strikethrough(){
     cursor.mergeCharFormat(fmt);
 }
 
-void wArea::bigFont(){
+inline void wArea::bigFont(){
     QTextCharFormat fmt;
     QTextCursor cursor = textEdit->textCursor();
     fmt = cursor.charFormat();
@@ -141,7 +141,7 @@ void wArea::bigFont(){
     cursor.mergeCharFormat(fmt);
 }
 
-void wArea::smallFont(){
+inline void wArea::smallFont(){
     QTextCharFormat fmt;
     QTextCursor cursor = textEdit->textCursor();
     fmt = cursor.charFormat();
@@ -152,7 +152,7 @@ void wArea::smallFont(){
     cursor.mergeCharFormat(fmt);
 }
 
-void wArea::colorFont(){
+inline void wArea::colorFont(){
     QTextCharFormat fmt;
     QTextCursor cursor = textEdit->textCursor();
     QColor color = QColorDialog::getColor(Qt::black, this);
@@ -163,7 +163,7 @@ void wArea::colorFont(){
     cursor.mergeCharFormat(fmt);
 }
 
-void wArea::chooseFont(){
+inline void wArea::chooseFont(){
     bool flag;
     QTextCharFormat fmt;
     QTextCursor cursor = textEdit->textCursor();
@@ -178,7 +178,7 @@ void wArea::chooseFont(){
     }
 }
 
-void wArea::savingFile(){
+inline void wArea::savingFile(){
     QString filename = QFileDialog::getSaveFileName(this, "Save As");
     if (filename.isEmpty())
         return;

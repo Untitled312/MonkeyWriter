@@ -16,7 +16,6 @@ private:
     QToolBar *toolbar;
     QTextEdit *textEdit;
 private slots:
-    void test();
     void bold();
     void italic();
     void underline();

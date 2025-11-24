@@ -1,5 +1,5 @@
-#include <menu.h>
-#include <workingArea.h>
+#include "menu.h"
+#include "workingArea.h"
 #include <QTreeView>
 #include <QGridLayout>
 #include <QFileSystemModel>
@@ -8,7 +8,7 @@
 #include <QFile>
 #include <QMovie>
 
-funnyMonkey::funnyMonkey(QWidget *parent)
+inline funnyMonkey::funnyMonkey(QWidget *parent)
     : QWidget(parent)
 {
     QMovie *movie = new QMovie(":/assets/images/monkey.gif");
@@ -19,7 +19,7 @@ funnyMonkey::funnyMonkey(QWidget *parent)
     movie->start();
 }
 
-menuWindow::menuWindow(QWidget *parent)
+inline menuWindow::menuWindow(QWidget *parent)
     : QWidget(parent)
 {
     this->setMinimumSize(640, 480);
@@ -45,7 +45,7 @@ menuWindow::menuWindow(QWidget *parent)
     this->show();
 }
 
-selectItem::selectItem(QWidget *parent)
+inline selectItem::selectItem(QWidget *parent)
     : QWidget(parent)
 {
     model = new QFileSystemModel;
@@ -68,7 +68,7 @@ selectItem::selectItem(QWidget *parent)
     this->show();
 }
 
-void selectItem::selectFile()
+inline void selectItem::selectFile()
 {
     QModelIndexList selectedIndex = treeView->selectionModel()->selectedIndexes();
     if(!selectedIndex.empty())
@@ -79,17 +79,17 @@ void selectItem::selectFile()
 }
 
 
-void menuWindow::openFile(){
+inline void menuWindow::openFile(){
     selectItem* itemFile = new selectItem;
 }
 
-void menuWindow::newFile()
+inline void menuWindow::newFile()
 {
     wArea* area = new wArea;
     area->show();
 }
 
-void menuWindow::exitBtn()
+inline void menuWindow::exitBtn()
 {
     QCoreApplication::quit();
 }
