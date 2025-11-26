@@ -81,6 +81,7 @@ inline void wArea::bold(){
     else{
         fmt.setFontWeight(QFont::Normal);
     }
+    fmt.clearForeground();
     if (!cursor.hasSelection())
         textEdit->setCurrentCharFormat(fmt);
     cursor.mergeCharFormat(fmt);
@@ -96,6 +97,7 @@ inline void wArea::italic(){
     else{
         fmt.setFontItalic(0);
     }
+    fmt.clearForeground();
     if (!cursor.hasSelection())
         textEdit->setCurrentCharFormat(fmt);
     cursor.mergeCharFormat(fmt);
@@ -111,6 +113,7 @@ inline void wArea::underline(){
     else{
         fmt.setFontUnderline(0);
     }
+    fmt.clearForeground();
     if (!cursor.hasSelection())
         textEdit->setCurrentCharFormat(fmt);
     cursor.mergeCharFormat(fmt);
@@ -126,6 +129,7 @@ inline void wArea::strikethrough(){
     else{
         fmt.setFontStrikeOut(0);
     }
+    fmt.clearForeground();
     if (!cursor.hasSelection())
         textEdit->setCurrentCharFormat(fmt);
     cursor.mergeCharFormat(fmt);
@@ -136,6 +140,7 @@ inline void wArea::bigFont(){
     QTextCursor cursor = textEdit->textCursor();
     fmt = cursor.charFormat();
     fmt.setFontPointSize(fmt.font().pointSize() + 1);
+    fmt.clearForeground();
     if (!cursor.hasSelection())
         textEdit->setCurrentCharFormat(fmt);
     cursor.mergeCharFormat(fmt);
@@ -147,6 +152,7 @@ inline void wArea::smallFont(){
     fmt = cursor.charFormat();
     if (fmt.font().pointSize() > 1)
         fmt.setFontPointSize(fmt.font().pointSize() - 1);
+    fmt.clearForeground();
     if (!cursor.hasSelection())
         textEdit->setCurrentCharFormat(fmt);
     cursor.mergeCharFormat(fmt);
@@ -155,12 +161,14 @@ inline void wArea::smallFont(){
 inline void wArea::colorFont(){
     QTextCharFormat fmt;
     QTextCursor cursor = textEdit->textCursor();
-    QColor color = QColorDialog::getColor(Qt::black, this);
-    if (!cursor.hasSelection()){
-        textEdit->setTextColor(color);
+    QColor color = QColorDialog::getColor(Qt::blue, this);
+    if (color.QColor::isValid()) {
+        if (!cursor.hasSelection()){
+            textEdit->setTextColor(color);
+        }
+        fmt.setForeground(color);
+        cursor.mergeCharFormat(fmt);
     }
-    fmt.setForeground(color);
-    cursor.mergeCharFormat(fmt);
 }
 
 inline void wArea::chooseFont(){
