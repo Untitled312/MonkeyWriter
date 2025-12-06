@@ -20,7 +20,8 @@ make
 ## Warning! Stable Work Isn't Guaranteed!
 ## Step 1: Install MSYS2
 ## Step 2: Install Dependencies
-```
+MSYS2 MINGW64 Terminal:
+``` 
 sudo pacman -Syu
 sudo pacman -S base-devel git p7zip mc mingw-w64-x86_64-make \
 mingw-w64-x86_64-ninja mingw-w64-clang-x86_64-tidy \
